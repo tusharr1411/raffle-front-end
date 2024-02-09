@@ -1,5 +1,6 @@
 import { useMoralis } from "react-moralis"
 import { useEffect } from "react"; // core react hook
+import { color } from "web3uikit";
 
 
 export default ()=>{
@@ -19,7 +20,7 @@ export default ()=>{
 
     useEffect(()=>{
         if(isWeb3Enabled) return
-        console.log(isWeb3Enabled)
+        console.log(` This is isWeb3Enabled : ${isWeb3Enabled}`)
         if(typeof window !== "undefined"){
             if(window.localStorage.getItem("connected")){
                 enableWeb3();
@@ -29,22 +30,22 @@ export default ()=>{
 
     }, [isWeb3Enabled])
     // takes 2 parameters, a function and a dependencies array(optional)
-    // useEffects gonna check continuously the values in array changes or not, if tthey do then it calls function4
+    // useEffects gonna check continuously the values in array changes or not, if they do then it calls function
     // automatically run on load
     // then it will run checking the value
     // No dependencies array : run anytime something changes(re-render)
     // blank array : run once on load
     //
-
-
+    
+    
     /* Local Storage */
 
     useEffect(()=>{
-        Moralis.onAccountChanged((account)=>{
-            console.log(`Account changed to ${account}`)
-            if(account == null){
+        Moralis.onAccountChanged((newAccount)=>{
+            console.log(`Account changed to ${newAccount}`)
+            if(newAccount == null){
                 window.localStorage.removeItem("connected");
-                deactivateWeb3();
+                deactivateWeb3();// sets isWeb3Enabled to false
                 console.log("Null account found")
             }
         })
@@ -60,10 +61,12 @@ export default ()=>{
             ? ( <div> Connected to {account.slice(0,6)}...{account.slice(account.length-4)} </div>)
 
             : (
-                <button onClick={async()=>{
+                <button  onClick={async()=>{
                     const CONNECTED  = await enableWeb3();
-                    if(typeof window !== "undefined" && typeof CONNECTED !== "undefined"){ window.localStorage.setItem("connected", "inject")}
-                    }}
+                    if(typeof window !== "undefined" && typeof CONNECTED !== "undefined"){ 
+                        window.localStorage.setItem("connected", "inject")
+                    }
+                }}
 
                     disabled = {isWeb3EnableLoading}
                 >

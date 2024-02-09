@@ -9,11 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "moralis": "^2.23.1",
-    "moralis-v1": "^1.13.0",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
+    "moralis-v1": "^1.13.0",
+    "moralis": "^2.23.1",
     "react-moralis": "^1.4.2",
     "web3uikit": "^1.0.4"
   },
@@ -24,3 +24,6 @@
     "tailwindcss": "^3.3.3"
   }
 }
+ 
+
+
